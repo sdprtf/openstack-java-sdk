@@ -1,6 +1,9 @@
 package com.woorea.openstack.examples.compute;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.woorea.openstack.base.client.OpenStackSimpleTokenProvider;
 import com.woorea.openstack.examples.ExamplesConfiguration;
 import com.woorea.openstack.keystone.Keystone;
@@ -10,6 +13,8 @@ import com.woorea.openstack.nova.Nova;
 import com.woorea.openstack.nova.model.Flavors;
 import com.woorea.openstack.nova.model.Images;
 import com.woorea.openstack.nova.model.KeyPairs;
+import com.woorea.openstack.nova.model.NetworkForCreate;
+import com.woorea.openstack.nova.model.Networks;
 import com.woorea.openstack.nova.model.Server;
 import com.woorea.openstack.nova.model.ServerForCreate;
 
@@ -62,17 +67,24 @@ public class NovaCreateServer {
       // novaClient.execute(SecurityGroupsExtension.createSecurityGroupRule(securityGroup.getId(),
       // "TCP", 8080, 8080, "0.0.0.0/0"));
 
-      KeyPairs keysPairs = nova.keyPairs().list().execute();
+      //KeyPairs keysPairs = nova.keyPairs().list().execute();
 
       Images images = nova.images().list(true).execute();
 
       Flavors flavors = nova.flavors().list(true).execute();
+      
+      Networks networks = nova.networks().list().execute();
+      List<NetworkForCreate> nfcList = new ArrayList<NetworkForCreate>();
+      NetworkForCreate nfc = new NetworkForCreate();
+      nfc.setId(networks.getList().get(2).getId());
+      nfcList.add(nfc);
 
       ServerForCreate serverForCreate = new ServerForCreate();
-      serverForCreate.setName("woorea");
+      serverForCreate.setName("justforfun");
       serverForCreate.setFlavorRef(flavors.getList().get(0).getId());
       serverForCreate.setImageRef(images.getList().get(1).getId());
-      serverForCreate.setKeyName(keysPairs.getList().get(0).getName());
+      serverForCreate.setNetworks(nfcList);
+      //serverForCreate.setKeyName(keysPairs.getList().get(0).getName());
       serverForCreate.getSecurityGroups()
           .add(new ServerForCreate.SecurityGroup("default"));
       // serverForCreate.getSecurityGroups().add(new
