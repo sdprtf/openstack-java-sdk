@@ -7,17 +7,17 @@ import com.woorea.openstack.keystone.model.Tenant;
 
 public class ExamplesConfiguration {
 
-	public static final String KEYSTONE_AUTH_URL = "https://region-a.geo-1.identity.hpcloudsvc.com:35357/v3";
+	public static final String KEYSTONE_AUTH_URL = "http://192.168.119.84:5000/v2.0";
 	
-	public static final String KEYSTONE_USERNAME = "";
+	public static final String KEYSTONE_USERNAME = "admin";
 	
-	public static final String KEYSTONE_PASSWORD = "";
+	public static final String KEYSTONE_PASSWORD = "sklois123";
 	
 	public static final String KEYSTONE_ENDPOINT = "https://region-a.geo-1.identity.hpcloudsvc.com:35357/v3";
 	
 	public static final String TENANT_NAME = "admin";
 
-	public static final String NOVA_ENDPOINT = "http://compute/v2";
+	public static final String NOVA_ENDPOINT = "http://192.168.119.84:8774/v2/";
 	
 	public static final String CEILOMETER_ENDPOINT = "";
 	
